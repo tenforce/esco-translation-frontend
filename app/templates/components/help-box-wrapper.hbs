@@ -1,0 +1,8 @@
+<div class="help"  {{action 'toggleHelp'}}>
+    <button type="button" class="showHelp" title="Help"></button>
+  {{#if toggleHelp}}
+    {{#tether-dialog close="toggleHelp" hasOverlay=false clickOutsideToClose=true container-class='help-box'}}
+        {{help-box closeHelp="closeHelp"}}
+    {{/tether-dialog}}
+  {{/if}}
+</div><!-- ./help -->

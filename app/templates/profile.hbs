@@ -1,0 +1,57 @@
+<div class="settings">
+  <div class="left">
+  </div>
+  <div class="right">
+    {{#if loadingUser}}
+      Loading information...
+    {{else}}
+      <div class="detail">
+        <form class="form profile-form" {{action "updateProfile" on="submit"}}>
+          <div class="section">
+            <div class="title">Personal information</div>
+            <div class="values">
+              <label>Name</label>
+              {{input type="text" placeholder="" value=name}}
+            </div>
+            <div class="values">
+              <label>Groups</label>
+              <div class="">{{userGroupTexts}}</div>
+            </div>
+          </div>
+          <div class="section">
+            <div class="title">Preferences</div>
+            <div class="values">
+              <div class="options" {{action 'toggleDisableShortcuts'}}>
+                <i class="fa {{if (eq user.disableShortcuts 'no') 'fa-toggle-off' 'fa-toggle-on'}}"></i> {{disableShortcutsLabel}}
+              </div>
+              <div class="translation language">
+                <label>Translation language</label>
+                <span>{{translationLanguage.title}}</span>
+              </div>
+              <div class="browsing language">
+                <label>Browsing language</label>
+                {{#power-select class="language-selector" options=languages selected=browsingLanguage searchField="title"
+                onchange=(action "setBrowsingLanguage") as |lang|}}
+                  {{lang.title}}
+                {{/power-select}}
+                <button class="btn btn--small btn-set-language" {{action "setTranslationLanguage" browsingLanguage}}
+                        disabled={{not currentUser.dirtyLanguage}}>
+                  Set as translation language
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="section">
+            <button class="btn btn-submit" disabled= {{or (not dirty) loading}}>
+              {{#if loading}}
+                <i class="fa fa-spinner fa-pulse"></i>
+              {{else}}
+                Save changes
+              {{/if}}
+            </button>
+          </div>
+        </form>
+      </div>
+    {{/if}}
+  </div>
+</div>

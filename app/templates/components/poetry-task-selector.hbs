@@ -1,0 +1,8 @@
+<div class="select-poetry-task">
+  <label class="label-poetry-task">Poetry:</label>
+    <div class="select" title="Select a poetry task">
+      {{#power-select options=tasks searchField="poetryid" selected=selectedTask onchange=(action "selectTask") as |task|}}
+        {{task.poetryid}}
+      {{/power-select}}
+    </div>
+</div>

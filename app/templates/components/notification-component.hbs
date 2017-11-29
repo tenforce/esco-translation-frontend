@@ -1,0 +1,61 @@
+<div class="detail">
+    <div class="feedback">
+      {{#if error}}
+          <div class="error">
+              <i class="fa fa-exclamation-triangle"></i>Failed to create notification
+          </div>
+      {{/if}}
+      {{#if success}}
+          <div class="success">
+              <i class="fa fa-check"></i>Notification created
+          </div>
+      {{/if}}
+    </div>
+    <div class="form">
+        <div class="section">
+            <div class="title">{{titleLabel}}</div>
+            <div class="values">
+                <label>Type</label>
+                {{#power-select options=notificationTypes selected=notification.notificationType onchange=(action "selectType") as |type|}}
+                  {{type}}
+                {{/power-select}}
+            </div>
+            <div class="values">
+                <label>Purpose</label>
+                {{#power-select options=purposeTypes selected=notification.purpose onchange=(action "selectPurpose") as |purpose|}}
+                  {{purpose}}
+                {{/power-select}}
+            </div>
+            <div class="values datepicker">
+                <label>{{expirationLabel}}</label>
+                {{pikaday-input format="DD/MM/YYYY" value=notification.expirationDate placeholder="Select an expiration date"
+                minDate=minDate onSelection=(action 'selectDate')}}
+            </div>
+            <div class="values">
+                <label>{{messageLabel}}</label>
+                {{textarea value=notification.message placeholder="Please insert your message" }}
+            </div>
+            {{#if (eq notification.notificationType "list")}}
+            <div class="values">
+                <label>{{listButtonLabel}}</label>
+                {{textarea value=notification.listButton placeholder="Please insert your message"}}
+                <ul class="related-items">
+                    {{#each notification.list as |relatedItem index|}}
+                      {{notification-related-item relatedItem=relatedItem index=index textContentModified="textContentModified"
+                      removeRelatedItem="removeRelatedItem" allowDelete=true highlight=true}}
+                    {{/each}}
+                    {{notification-related-item relatedItem=newRelatedItem index="New" textContentModified="newTextContentModified"
+                    removeRelatedItem="removeNewRelatedItem" allowDelete=false highlight=false}}
+                    <button type="button" class="btn add-item" {{action 'increaseRelatedItemField' }}>{{relatedButtonLabel}}</button>
+                </ul>
+            </div>
+            {{/if}}
+        </div>
+
+        <div class="section">
+            <button id="notificationSaveButton" type="button" class="btn btn-submit {{if shouldDisableSave 'disabled'}}" {{action 'save'}} disabled={{if shouldDisableSave 'disabled'}}>
+              {{saveButtonLabel}}
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="settings">
+    <div class="left">
+        <ul class="menu">
+            <li {{action 'setDisplay' 'list'}}>
+                List existing notifications
+            </li>
+            <li {{action 'setDisplay' 'create'}}>
+                Create a new notification
+            </li>
+        </ul>
+    </div>
+    <div class="right">
+        <div class="content">
+          {{#if (eq display "list")}}
+            {{notifications-list update="update"}}
+          {{else if (eq display "create")}}
+            {{notification-component}}
+          {{else if (eq display "update")}}
+            {{notification-component notification=selectedNotification setDisplay="setDisplay"}}
+          {{/if}}
+        </div>
+    </div>
+</div>

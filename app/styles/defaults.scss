@@ -1,0 +1,390 @@
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-weight: 300;
+  font-style: normal;
+  src: url('fonts/Source-Sans-Pro-300/Source-Sans-Pro-300.eot');
+  src: url('fonts/Source-Sans-Pro-300/Source-Sans-Pro-300.eot?#iefix') format('embedded-opentype'),
+       local('Source Sans Pro Light'),
+       local('Source-Sans-Pro-300'),
+       url('fonts/Source-Sans-Pro-300/Source-Sans-Pro-300.woff2') format('woff2'),
+       url('fonts/Source-Sans-Pro-300/Source-Sans-Pro-300.woff') format('woff'),
+       url('fonts/Source-Sans-Pro-300/Source-Sans-Pro-300.ttf') format('truetype'),
+       url('fonts/Source-Sans-Pro-300/Source-Sans-Pro-300.svg#SourceSansPro') format('svg');
+}
+
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-weight: 400;
+  font-style: normal;
+  src: url('fonts/Source-Sans-Pro-regular/Source-Sans-Pro-regular.eot');
+  src: url('fonts/Source-Sans-Pro-regular/Source-Sans-Pro-regular.eot?#iefix') format('embedded-opentype'),
+       local('Source Sans Pro'),
+       local('Source-Sans-Pro-regular'),
+       url('fonts/Source-Sans-Pro-regular/Source-Sans-Pro-regular.woff2') format('woff2'),
+       url('fonts/Source-Sans-Pro-regular/Source-Sans-Pro-regular.woff') format('woff'),
+       url('fonts/Source-Sans-Pro-regular/Source-Sans-Pro-regular.ttf') format('truetype'),
+       url('fonts/Source-Sans-Pro-regular/Source-Sans-Pro-regular.svg#SourceSansPro') format('svg');
+}
+
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-weight: 600;
+  font-style: normal;
+  src: url('fonts/Source-Sans-Pro-600/Source-Sans-Pro-600.eot');
+  src: url('fonts/Source-Sans-Pro-600/Source-Sans-Pro-600.eot?#iefix') format('embedded-opentype'),
+       local('Source Sans Pro Semibold'),
+       local('Source-Sans-Pro-600'),
+       url('fonts/Source-Sans-Pro-600/Source-Sans-Pro-600.woff2') format('woff2'),
+       url('fonts/Source-Sans-Pro-600/Source-Sans-Pro-600.woff') format('woff'),
+       url('fonts/Source-Sans-Pro-600/Source-Sans-Pro-600.ttf') format('truetype'),
+       url('fonts/Source-Sans-Pro-600/Source-Sans-Pro-600.svg#SourceSansPro') format('svg');
+}
+
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-weight: 700;
+  font-style: normal;
+  src: url('fonts/Source-Sans-Pro-700/Source-Sans-Pro-700.eot');
+  src: url('fonts/Source-Sans-Pro-700/Source-Sans-Pro-700.eot?#iefix') format('embedded-opentype'),
+       local('Source Sans Pro Bold'),
+       local('Source-Sans-Pro-700'),
+       url('fonts/Source-Sans-Pro-700/Source-Sans-Pro-700.woff2') format('woff2'),
+       url('fonts/Source-Sans-Pro-700/Source-Sans-Pro-700.woff') format('woff'),
+       url('fonts/Source-Sans-Pro-700/Source-Sans-Pro-700.ttf') format('truetype'),
+       url('fonts/Source-Sans-Pro-700/Source-Sans-Pro-700.svg#SourceSansPro') format('svg');
+}
+
+@font-face {
+  font-family: 'esco';
+  src:url('fonts/esco.eot?8b80t1');
+  src:url('fonts/esco.eot?8b80t1#iefix') format('embedded-opentype'),
+  url('fonts/esco.ttf?8b80t1') format('truetype'),
+  url('fonts/esco.woff?8b80t1') format('woff'),
+  url('fonts/esco.svg?8b80t1#pmx') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+*, *:before, *:after {
+	@include box-sizing(border-box);
+}
+
+*:before, *:after {
+	font-family: 'FontAwesome';
+	font-style: normal;
+}
+
+body {
+	text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Source Sans Pro', sans-serif;
+    background-color: #F2F2F2;
+    zoom: 100%;
+	min-width: 1200px;
+	font-size: 16px;
+}
+
+img {
+	border: none;
+	outline: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: normal;
+	font-size: 100%;
+}
+
+ul, ol {
+	list-style: none;
+	list-style-type: none;
+}
+
+a {
+	text-decoration: none;
+	color: #000;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+}
+
+input {
+	border: none;
+    padding: 7px 8px 5px 8px;
+	font-family: 'Source Sans Pro', sans-serif;
+    @include border-radius(5px);
+	font-size: 16px;
+}
+
+input:disabled, textarea:disabled {
+	background: none;
+	@include opacity(.7);
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: inset 0 0 0 1000px #FFF;
+}
+
+button {
+	border: none;
+    background: none;
+    outline: none;
+    cursor: pointer;
+	font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+    outline: none;
+    cursor: pointer;
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+select:-ms-expand {
+    display: none;
+}
+
+textarea {
+	border: 1px solid #DDD;
+    padding: 10px;
+    width: 100%;
+	height: 100%;
+    font-family: 'Source Sans Pro', sans-serif;
+    @include border-radius(5px);
+    font-size: 16px;
+}
+
+/* Default classes */
+
+.blue {
+	color: #0492D0;
+}
+
+.lightgreen {
+	color: #39D339;
+}
+
+.gray {
+	color: #A4A4A4;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.clearfix:after {
+	content: '';
+	display: table;
+	clear: both;
+}
+
+.btn {
+	background-color: #0492D0;
+	color: #FFF;
+	padding: 7px 20px 8px;
+	display: inline-block;
+	font-weight: 500;
+	cursor: pointer;
+	font-size: 16px;
+  @include border-radius(3px);
+
+	&.btn--small {
+		padding: 5px 10px;
+    margin: 0 0 10px 0;
+    font-size: 14px;
+	}
+}
+
+.msg--empty {
+    padding: 15px;
+    display: block;
+    font-size: 14px;
+    color: #999;
+    text-align: center;
+}
+
+.ember-power-select-dropdown {
+	border-right: 1px solid #EEE;
+	border-left: 1px solid #EEE;
+	width: auto !important;
+    z-index: 9999999;
+	@include box-shadow(0 0 25px -5px #999);
+}
+
+.ember-power-select-trigger {
+	padding: 3px 28px 3px 8px;
+	cursor: pointer;
+	border: 1px solid #EEE;
+	min-height: 20px;
+	outline: none;
+	font-size: 18px;
+	@include border-radius(5px);
+}
+
+.ember-power-select-trigger[aria-disabled=true] {
+	cursor: default;
+	background-color: transparent;
+	color: #999;
+    @include opacity(.5);
+
+	.ember-power-select-status-icon {
+		&:after {
+			color: #999 !important;
+		}
+	}
+}
+
+.ember-basic-dropdown-trigger[aria-expanded="true"] {
+	.ember-power-select-status-icon {
+		@include transform(none);
+
+		&:after {
+			content: "\f106";
+		}
+	}
+}
+
+.ember-power-select-status-icon {
+	border: none;
+	margin: 0;
+    position: static;
+
+	&:after {
+	    content: "\f107";
+	    position: absolute;
+	    top: 0;
+	    right: 0;
+	    color: #0492D0;
+	    margin: 0 5px 0 0;
+	    padding: 0 5px 0 0;
+	    z-index: 0;
+	    font-size: 28px;
+      font-weight: 300;
+	}
+}
+
+.ember-power-select-dropdown.ember-basic-dropdown--above,
+.ember-power-select-dropdown.ember-basic-dropdown--below,
+.ember-basic-dropdown--in-place .ember-power-select-dropdown {
+	border: none;
+	min-width: 130px !important;
+}
+
+.ember-power-select-search {
+	input {
+		padding: 5px;
+		outline: none;
+		border: 1px solid #DDD;
+		@include border-radius(3px);
+		font-size: 14px;
+	}
+}
+
+.ember-power-select-option {
+	padding: 5px 8px;
+
+	&.ember-power-select-option--no-matches-message {
+		color: #808080;
+		font-style: italic;
+		font-size: 14px;
+	}
+}
+
+.ember-power-select-options[role="listbox"] {
+	background-color: #FFF;
+}
+
+.input-box,
+.textarea-box {
+    position: relative;
+    display: inline-block;
+
+    i {
+		position: absolute;
+	    top: 0;
+	    right: 0;
+	    margin: 5px 5px 0 0;
+	    padding: 6px;
+	    color: #CCC;
+	    cursor: pointer;
+
+	    &:hover {
+	    	color: #0492D0;
+	    }
+    }
+}
+
+.textarea-box {
+	display: block;
+}
+
+@include keyframes(showAnimation) {
+	0% {
+		@include transform(scaleY(0.1));
+	}
+	40% {
+		@include transform(scaleY(1.04));
+	}
+	60% {
+		@include transform(scaleY(0.98));
+	}
+	80% {
+		@include transform(scaleY(1.04));
+	}
+	100% {
+		@include transform(scaleY(0.98));
+	}
+	80% {
+		@include transform(scaleY(1.02));
+	}
+	100% {
+		@include transform(scaleY(1));
+	}
+}
+@include keyframes(hideAnimation) {
+	0% {
+		@include transform(scaleY(1));
+	}
+	60% {
+		@include transform(scaleY(0.98));
+	}
+	80% {
+		@include transform(scaleY(1.02));
+	}
+	100% {
+		@include transform(scaleY(0));
+	}
+}
+@include keyframes(highlight) {
+	0% {
+	    border: 1px solid #EEE;
+	}
+	30% {
+		border: 1px solid rgba(45, 179, 45, 1);
+	}
+	100% {
+		border: 1px solid #EEE;
+	}
+}
+@include keyframes(flickr) {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+};

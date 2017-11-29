@@ -1,0 +1,162 @@
+<div class="right">
+	<div class="concept-detail">
+		<div class="concept-description {{if collapsed "collapsed" "open"}}">
+			{{!concept-description concept=model config=conceptDescription tagName=conceptDescriptionTagName classNames=conceptDescriptionClassNames}}
+      {{#concept-display object=model}}
+        {{#concept-title-bar}}
+          <div class="concept-header">
+            <h1 class="main-title">{{await model.defaultPrefLabel}}</h1>
+          </div>
+        {{/concept-title-bar}}
+        {{#concept-sections}}
+          {{#concept-section title="Details" collapsed=false }}
+            {{#concept-subsection title="Description"}}
+              {{concept-simple-textarea object=model disableEditing=true reference="defaultDescription" saveValue=(action "saveValue" "defaultDescription" "description")}}
+            {{/concept-subsection}}
+            {{#concept-subsection title="Definition"}}
+              {{concept-simple-textarea object=model disableEditing=true reference="defaultDefinition" saveValue=(action "saveValue" "defaultDefinition" "definition")}}
+            {{/concept-subsection}}
+            {{#concept-subsection title="Scope note"}}
+              {{concept-simple-textarea object=model disableEditing=true reference="defaultScopeNote" saveValue=(action "saveValue" "defaultScopeNote" "scope note")}}
+            {{/concept-subsection}}
+
+            {{#concept-subsection title="Non-preferred terms"}}
+              {{#if model.defaultAltLabels}}
+                <ul>
+                  {{#each (await model.defaultAltLabels) as |label|}}
+                    <li>{{first-to-uppercase label.literalForm}}<button class='quest-btn' {{action 'goToQuest' label.literalForm}}></button></li>
+                  {{else}}
+                    <p class="msg msg--empty">No non-preferred terms</p>
+                  {{/each}}
+                </ul>
+              {{/if}}
+
+            {{/concept-subsection}}
+          {{/concept-section}}
+
+          {{#concept-section title="Related skills / competences" collapsed=false}}
+            {{#concept-subsection title="Essential"}}
+              {{show-skills object=model skillRelation="essentialSkills"}}
+            {{/concept-subsection}}
+
+            {{#concept-subsection title="Optional"}}
+              {{show-skills object=model skillRelation="optionalSkills"}}
+            {{/concept-subsection}}
+          {{/concept-section}}
+
+          {{#concept-section title="Related knowledge" collapsed=false}}
+            {{#concept-subsection title="Essential"}}
+              {{show-skills object=model skillRelation="essentialKnowledges"}}
+            {{/concept-subsection}}
+
+            {{#concept-subsection title="Optional"}}
+              {{show-skills object=model skillRelation="optionalKnowledges"}}
+            {{/concept-subsection}}
+          {{/concept-section}}
+
+        {{#if model.isSkill}}
+          {{#concept-section title="Related occupations" collapsed=false}}
+            {{#concept-subsection title="Essential for"}}
+              {{show-skills object=model skillRelation="essentialSkillFor"}}
+            {{/concept-subsection}}
+
+            {{#concept-subsection title="Optional for"}}
+              {{show-skills object=model skillRelation="optionalSkillFor"}}
+            {{/concept-subsection}}
+          {{/concept-section}}
+        {{/if}}
+
+        {{/concept-sections}}
+      {{/concept-display}}
+    </div>
+		<div class="btn-toggle-more {{if collapsed "collapsed" "open"}}" {{action "toggleDetail"}} title= {{toggleTooltip}}>
+			<i class="fa fa-angle-{{if collapsed "down" "up"}}"></i>
+		</div>
+		{{#if loadingTask}}
+      <i class="fa fa-spinner fa-pulse"></i>
+    {{else if task.id}}
+      <div class="concept-translation">
+        <div class="translation-form">
+          <div class="header">
+            <h3>Translation to<div class="language-selector">{{language-selector setLanguage="setLanguage" languageCode=selectedLanguage languages=languages}}</div></h3>
+
+            {{#if loadingTask}}
+            <div class="translation-status" title="Loading task">
+              <i class="fa fa-spinner fa-pulse"></i>
+            </div>
+            {{else if savingTask}}
+              <div class="translation-status" title="Loading task">
+                <i class="fa fa-spinner fa-pulse"></i>
+              </div>
+            {{else}}
+              <div class="translation-status{{if failedToSaveStatus.display " failed"}}" title= {{statusSelectorTitle}}>
+                {{#if displayErrors}}
+                  <div class="error">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true" title={{errorsMessage}}></i>
+                  </div>
+                {{/if}}
+                {{#power-select tabindex=-1 disabled=(not allowStatusChange) options=statusOptions searchField='name' selected=chosenStatus
+                onchange=(action "setStatus") as |state|}}
+                  <span class="status-{{state.name}}">{{state.name}}</span>
+                {{/power-select}}
+              </div>
+            {{/if}}
+          </div>
+
+          {{#if loading}}
+            <i class="fa fa-spinner fa-pulse"></i>
+          {{else}}
+            {{#terms-list terms=prefTerms roles=roles name="pref" suggestions=(await suggestions) newTerm=newPrefTerm displayNewTerm=emptyPrefTerms.display
+            displayDelete=(if tooManyPrefTerms.display true false) displaySuggestions=(if tooManyPrefTerms.display false true) toggleGender="togglePrefGender"
+            saveTerm="savePrefTerm" saveNewTerm="saveNewPrefTerm" deleteTerm="deleteTerm" rollbackTerm="rollbackTerm" disabled=disableTranslation
+            placeholder=placeholder newPlaceholder=placeholder}}
+              <div class="block-title">
+                {{#if toomanyPrefTerms.display}}
+                  <label>Preferred terms</label>
+                {{else}}
+                  <label>Preferred term</label>
+                {{/if}}
+                <i class="fa fa-info-circle" title="Each concept within ESCO has a designated, unique preferred name per ESCO language. Out of a group of terms with similar meaning, the one that best represents the concept is chosen to be the preferred term. The preferred term of a given concept is unique per language and can always be used for cases where the natural gender is not known."></i>
+              {{#if toomanyPrefTerms.display}}<i class="fa fa-exclamation-triangle" title="A concept should only have a single preferred term per language"></i>{{/if}}
+              </div>
+            {{/terms-list}}
+
+            {{#terms-list terms=altTerms roles=roles name="alt" suggestions=(await suggestions) newTerm=newAltTerm displaySource=true
+            toggleGender="toggleAltGender" saveTerm="saveAltTerm" saveNewTerm="saveNewAltTerm" deleteTerm="deleteTerm"
+            rollbackTerm="rollbackTerm" disabled=disableTranslation placeholder=placeholder newPlaceholder=placeholder}}
+              <div class="block-title">
+                <label>Non-preferred terms</label>
+                <i class="fa fa-info-circle" title="Non-preferred terms can be synonyms (words with similar or same meanings) but can also be spelling variants, declensions, abbreviations, etc. They are regularly used by the target group (jobseekers, employers, education institutions) to refer to concepts that are described in ESCO with the preferred term."></i>
+              </div>
+            {{/terms-list}}
+
+            {{#terms-list terms=hiddenTerms roles=undefined name="hidden" suggestions=(await suggestions) newTerm=newHiddenTerm
+            displaySource=true toggleGender="toggleHiddenGender" saveTerm="saveHiddenTerm" saveNewTerm="saveNewHiddenTerm"
+            deleteTerm="deleteTerm" rollbackTerm="rollbackTerm" disabled=disableTranslation placeholder=placeholder newPlaceholder=placeholder}}
+              <div class="block-title">
+                <label>Hidden terms</label>
+                <i class="fa fa-info-circle" title="Hidden terms are commonly used on the labour market to refer to a concept but are at the same time considered as outdated, misspelled or politically incorrect. Therefore, they are invisible for the end-user."></i>
+              </div>
+            {{/terms-list}}
+            <div class="block">
+              {{visual-gender-box altTerms=altTerms prefTerms=prefTerms}}
+            </div>
+          {{/if}}
+        </div>
+      </div>
+		{{/if}}
+	</div>
+	<div class="sidebar">
+		<ul>
+			<li>{{comments-wrapper about=model}}</li>
+			{{#if (await pathToQuest)}}
+			  <li class="question"><a target="_blank" title="Go to Quest" href= {{await pathToQuest}}>Q</a></li>
+			{{/if}}
+			<li>{{show-notes concept=model}}</li>
+      <li>{{help-box-wrapper}}</li>
+			<li><button type="button" class="save-all{{if saveAllButton.dirty " dirty" " disabled"}}" title="Save all changes" {{action 'saveAll'}}
+                  disabled={{not
+      dirty}}></button></li>
+		</ul>
+	</div>
+</div>

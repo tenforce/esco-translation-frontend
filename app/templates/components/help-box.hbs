@@ -1,0 +1,16 @@
+<div class="help-header">
+    <h4>Help</h4>
+    <span class="close" {{action "closeHelp"}}></span>
+</div><!-- ./help-header -->
+<div class="tab-selector">
+    <ul>
+        {{#each tabs as |tab|}}
+          <li class="{{if (eq selectedTab tab) "selected"}}" {{action "selectTab" tab}}>{{tab.label}}</li>
+        {{/each}}
+    </ul>
+</div>
+<div class="help-body">
+    {{#if selectedTab}}
+        {{component selectedTab.component}}
+    {{/if}}
+</div><!-- ./help-body -->

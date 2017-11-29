@@ -1,0 +1,18 @@
+<div class="left">
+  <div title={{selectTaxonomyTitle}}  class="taxonomy-selector">
+    {{#power-select options=taxonomies searchField="label" selected=selectedTaxonomy disabled=disableTaxonomyChange     onchange=(action "selectTaxonomy") as |selected|}}
+      {{selected.label}}
+    {{/power-select}}
+  </div>
+  <div class="hierarchy">
+    {{#taxonomy-browser taxonomy=model filterTypes=filters activateItem="activateItem" searchPlaceholder="Filter..." baseConfig=config
+    disableShortcuts=disableShortcuts addPillarHierarchy=false}}
+      <div class="options" {{action 'toggleDisplayInChosenLanguage'}}>
+        <i class="fa {{if (eq user.showIscoInChosenLanguage 'yes') 'fa-toggle-off' 'fa-toggle-on'}}"></i>
+        Show tree in English
+      </div>
+    {{/taxonomy-browser}}
+  </div>
+</div>
+
+{{outlet}}
