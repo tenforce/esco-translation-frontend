@@ -1,25 +1,12 @@
-FROM node:4 AS build
+FROM node:4
 LABEL authors="Cecile Tonglet <cecile.tonglet@tenforce.com>"
-ARG env=dev
 
 RUN npm -q set progress=false
-RUN npm install -q -g bower
+RUN npm install -q -g bower ember-cli
 
-RUN mkdir /src
-WORKDIR /src
+RUN mkdir /app
+WORKDIR /app
 
-ADD package.json /src/
-RUN npm install -q
-
-ADD bower.json /src/
-RUN bower --allow-root install
-
-ENV PATH=/src/node_modules/ember-cli/bin:$PATH
-
-COPY . /src/
-RUN ember build --$env >/dev/null
-
-
-FROM semtech/mu-nginx-spa-proxy
-COPY --from=build /src/dist /app
-COPY nginx/app.conf /etc/nginx/conf.d
+ENV PATH=/app/node_modules/ember-cli/bin:$PATH
+ENV GIT_DIR=/tmp
+CMD sh -c "npm install -q && bower --allow-root install && ember build --dev"
