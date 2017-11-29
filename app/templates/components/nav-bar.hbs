@@ -46,10 +46,10 @@
     {{/if}}
     <div class="dropdowns">
       <div class="poetry">
-        {{poetry-task-selector}}
+     		{{#if session.isAuthenticated}}{{poetry-task-selector}}{{/if}}
       </div>
       <div class="notifications">
-        {{display-notifications user=user handleClick="handleClick" targetAttachment='bottom left' attachment='top right'}}
+        {{#if session.isAuthenticated}}{{display-notifications user=user handleClick="handleClick" targetAttachment='bottom left' attachment='top right'}}{{/if}}
       </div>
       <div class="user-nav">
         <a {{action 'toggleMenu'}} class="user-nav-btn {{if menuClosed "closed"}}" title="View user settings">
@@ -70,7 +70,7 @@
               <span {{action 'closeMenu'}}>{{#link-to 'validation' (query-params platform='translation') tagName="li"}}Validate{{/link-to}}</span>
             {{/if}}
             {{!-- <span {{action 'closeMenu'}}>{{#link-to 'admin' tagName="li"}}Admin{{/link-to}}</span> --}}
-            <span class="logout-button">{{ecas-logout tagName="li"}}</span>
+            <span class="logout-button">{{mu-logout tagName="li"}}</span>
           {{else}}
             <span {{action 'closeMenu'}}>{{#link-to 'sign-in' tagName="li"}}Sign in{{/link-to}}</span>
           {{/if}}
