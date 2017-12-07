@@ -49,7 +49,7 @@ UserTasksService = Ember.Service.extend
       @get('user.poetryTask').then (poetry) =>
         @fetchTasks()
   ).on('init')
-  fetchTasks: (schedule) ->
+  fetchTasks: (schedule = true) ->
     poetryId = @get('poetryTask.id')
     if poetryId
       kpi = "992c2ebb-1d2a-4929-a732-d6a8e7d02545" # kpi scoped to poetry task
@@ -71,7 +71,8 @@ UserTasksService = Ember.Service.extend
         @set 'confirmed', 0
         observations.forEach (obs) =>
           @set `obs.attributes.status.replace(/ /g, '')`, obs.attributes.total
+      )
       if schedule
-        Ember.run.later(@fetchTasks, 60000)
-    )
+        Ember.run.later(this, "fetchTasks", 60000)
+
 `export default UserTasksService`
